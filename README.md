@@ -5,9 +5,9 @@
 - Уникальная технология: выдача кредита по данным банковской карты 
 
 #### В процессе работы над данным проектом были созданы следующие документы:
-1. [План автоматизации](https://github.com/k0xzy/diplom/blob/master/docs/Plan.md)
-2. [Отчет о проведенном тестировании](https://github.com/k0xzy/diplom/blob/master/docs/Report.md)
-3. [Отчет о проведённой автоматизации тестирования](https://github.com/k0xzy/diplom/blob/master/docs/Summary.md)
+1. [План автоматизации](https://github.com/k0xzy/diplomFinal/blob/master/docs/Plan.md)
+2. [Отчет о проведенном тестировании](https://github.com/k0xzy/diplomFinal/blob/master/docs/Report.md)
+3. [Отчет о проведённой автоматизации тестирования](https://github.com/k0xzy/diplomFinal/blob/master/docs/Summary.md)
 
 #### Необходимое окружение:
 - установленный Docker;
