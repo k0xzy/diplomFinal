@@ -3,6 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataGenerator;
+import ru.netology.data.CardInf.*;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -56,7 +57,7 @@ public class PurchasePage {
         cvcFieldError.shouldBe(Condition.hidden);
     }
 
-    public void emptyCardNumberField(DataGenerator.CardInfo info) {
+    public void emptyCardNumberField(ru.netology.data.CardInf.CardInfo info) {
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
         ownerField.setValue(info.getOwner());
@@ -73,7 +74,7 @@ public class PurchasePage {
         cvcFieldError.shouldBe(Condition.hidden);
     }
 
-    public void emptyMonthField(DataGenerator.CardInfo info) {
+    public void emptyMonthField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         yearField.setValue(info.getYear());
         ownerField.setValue(info.getOwner());
@@ -90,7 +91,7 @@ public class PurchasePage {
         cvcFieldError.shouldBe(Condition.hidden);
     }
 
-    public void emptyYearField(DataGenerator.CardInfo info) {
+    public void emptyYearField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         ownerField.setValue(info.getOwner());
@@ -107,7 +108,7 @@ public class PurchasePage {
         cvcFieldError.shouldBe(Condition.hidden);
     }
 
-    public void emptyOwnerField(DataGenerator.CardInfo info) {
+    public void emptyOwnerField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
@@ -124,7 +125,7 @@ public class PurchasePage {
         ownerFieldError.shouldBe(Condition.hidden);
     }
 
-    public void emptyCVCField(DataGenerator.CardInfo info) {
+    public void emptyCVCField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
@@ -134,7 +135,7 @@ public class PurchasePage {
         cvcFieldErrorHidden();
     }
 
-    public void invalidCardNumberField(DataGenerator.CardInfo info) {
+    public void invalidCardNumberField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
@@ -145,7 +146,7 @@ public class PurchasePage {
         cardNumberFieldErrorHidden();
     }
 
-    public void invalidMonthField(DataGenerator.CardInfo info) {
+    public void invalidMonthField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
@@ -156,7 +157,7 @@ public class PurchasePage {
         monthFieldErrorHidden();
     }
 
-    public void invalidYearField(DataGenerator.CardInfo info) {
+    public void invalidYearField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
@@ -167,7 +168,7 @@ public class PurchasePage {
         yearFieldErrorHidden();
     }
 
-    public void invalidOwnerField(DataGenerator.CardInfo info) {
+    public void invalidOwnerField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
@@ -178,7 +179,7 @@ public class PurchasePage {
         ownerFieldErrorHidden();
     }
 
-    public void invalidCVCField(DataGenerator.CardInfo info) {
+    public void invalidCVCField(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
@@ -189,7 +190,7 @@ public class PurchasePage {
         cvcFieldErrorHidden();
     }
 
-    public void sendingData(DataGenerator.CardInfo info) {
+    public void sendingData(ru.netology.data.CardInf.CardInfo info) {
         cardNumberField.setValue(info.getNumberCard());
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());

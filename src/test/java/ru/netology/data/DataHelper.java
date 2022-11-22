@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 
 public class DataHelper {
     private static final String datasource = System.getProperty("datasource");
-
     @SneakyThrows
     public static void databaseCleanUp() {
         var runner = new QueryRunner();
@@ -27,7 +26,8 @@ public class DataHelper {
     @SneakyThrows
     public static CreditRequestEntityInfo getCreditRequestInfo() {
         var runner = new QueryRunner();
-        var creditRequestInfo = "SELECT * FROM credit_request_entity WHERE created = (SELECT MAX(created) FROM credit_request_entity);";
+        var creditRequestInfo = "SELECT * FROM credit_request_entity WHERE created order by created DESC limit 1;";
+//        var creditRequestInfo = "SELECT * FROM credit_request_entity WHERE created = (SELECT MAX(created) FROM credit_request_entity);";
 
         try (var connection = DriverManager.getConnection(
                 datasource, "adm", "pass")) {
@@ -38,7 +38,8 @@ public class DataHelper {
     @SneakyThrows
     public static PaymentEntityInfo getPaymentInfo() {
         var runner = new QueryRunner();
-        var paymentInfo = "SELECT * FROM payment_entity WHERE created = (SELECT MAX(created) FROM payment_entity);";
+        var paymentInfo = "select * from payment_entity WHERE created order by created DESC limit 1;";
+//        var paymentInfo = "SELECT * FROM payment_entity WHERE created = (SELECT MAX(created) FROM payment_entity);";
 
         try (var connection = DriverManager.getConnection(
                 datasource, "adm", "pass")) {
@@ -49,7 +50,8 @@ public class DataHelper {
     @SneakyThrows
     public static OrderEntityInfo getOrderInfo() {
         var runner = new QueryRunner();
-        var orderInfo = "SELECT * FROM order_entity WHERE created = (SELECT MAX(created) FROM order_entity);";
+        var orderInfo = "SELECT * FROM order_entity WHERE created order by created DESC limit 1;";
+//        var orderInfo = "SELECT * FROM order_entity WHERE created = (SELECT MAX(created) FROM order_entity);";
 
         try (var connection = DriverManager.getConnection(
                 datasource, "adm", "pass")) {
