@@ -36,22 +36,9 @@ public class DataGenerator {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
     }
 
-    private static String getOverdueYear() {    //Просроченный год, текущий год - 1 год:
-        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yy"));
+    private static String getYear(int yearCount) {
+        return LocalDate.now().plusYears(yearCount).format(DateTimeFormatter.ofPattern("yy"));
     }
-
-    private static String getNextYear() {    //Следующий год, текущий год + 1 год:
-        return LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("yy"));
-    }
-
-    private static String getYearFromFuture() {    //Год из будущего, текущий год + 6 лет:
-        return LocalDate.now().plusYears(6).format(DateTimeFormatter.ofPattern("yy"));
-    }
-
-    private static String getValidYear() {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("yy"));
-    }
-
     private static String getSpaceOrHyphen() {
         Random random = new Random();
         final String [] symbols = new String [] {" ", "-"};
@@ -89,54 +76,54 @@ public class DataGenerator {
     }
 
     public static CardInfo getApprovedCard() {
-        return new CardInfo(validCard, getValidMonth(), getValidYear(), getOwner(), getCVC());
+        return new CardInfo(validCard, getValidMonth(), getYear(0), getOwner(), getCVC());
     }
 
     public static CardInfo getDeclinedCard() {
-        return new CardInfo(invalidCard, getValidMonth(), getValidYear(), getOwner(), getCVC());
+        return new CardInfo(invalidCard, getValidMonth(), getYear(0), getOwner(), getCVC());
     }
 
     public static CardInfo getCardWithIncompleteCardNumber() {
-        return new CardInfo(getIncompleteCardNumber(), getValidMonth(), getValidYear(), getOwner(), getCVC());
+        return new CardInfo(getIncompleteCardNumber(), getValidMonth(), getYear(0), getOwner(), getCVC());
     }
 
     public static CardInfo getCardWithOverdueMonth() {
         if (getValidMonth().equals("01")) {
-            return new CardInfo(validCard, getOverdueMonth(), getOverdueYear(), getOwner(), getCVC());
+            return new CardInfo(validCard, getOverdueMonth(), getYear(-1), getOwner(), getCVC());
         }
-        return new CardInfo(validCard, getOverdueMonth(), getValidYear(), getOwner(), getCVC());
+        return new CardInfo(validCard, getOverdueMonth(), getYear(0), getOwner(), getCVC());
     }
 
     public static CardInfo getCardWithLowerMonthValue() {
-        return new CardInfo(validCard, getLowerMonthValue(), getNextYear(), getOwner(), getCVC());
+        return new CardInfo(validCard, getLowerMonthValue(), getYear(1), getOwner(), getCVC());
     }
 
     public static CardInfo getCardWithGreaterMonthValue() {
-        return new CardInfo(validCard, getGreaterMonthValue(), getNextYear(), getOwner(), getCVC());
+        return new CardInfo(validCard, getGreaterMonthValue(), getYear(1), getOwner(), getCVC());
     }
 
     public static CardInfo getCardWithOverdueYear() {
-        return new CardInfo(validCard, getValidMonth(), getOverdueYear(), getOwner(), getCVC());
+        return new CardInfo(validCard, getValidMonth(), getYear(-1), getOwner(), getCVC());
     }
 
     public static CardInfo getCardWithYearFromFuture() {
-        return new CardInfo(validCard, getValidMonth(), getYearFromFuture(), getOwner(), getCVC());
+        return new CardInfo(validCard, getValidMonth(), getYear(6), getOwner(), getCVC());
     }
 
     public static CardInfo getCardWithSpaceOrHyphenOwner() {
-        return new CardInfo(validCard, getValidMonth(), getValidYear(), getSpaceOrHyphen(), getCVC());
+        return new CardInfo(validCard, getValidMonth(), getYear(0), getSpaceOrHyphen(), getCVC());
     }
 
     public static CardInfo getCardWithSpecialSymbolsOwner() {
-        return new CardInfo(validCard, getValidMonth(), getValidYear(), getSpecialSymbols(), getCVC());
+        return new CardInfo(validCard, getValidMonth(), getYear(0), getSpecialSymbols(), getCVC());
     }
 
     public static CardInfo getCardWithNumbersOwner() {
-        return new CardInfo(validCard, getValidMonth(), getValidYear(), getNumbers(), getCVC());
+        return new CardInfo(validCard, getValidMonth(), getYear(0), getNumbers(), getCVC());
     }
 
     public static CardInfo getCardWithIncompleteCVC() {
-        return new CardInfo(validCard, getValidMonth(), getValidYear(), getOwner(), getNumbers());
+        return new CardInfo(validCard, getValidMonth(), getYear(0), getOwner(), getNumbers());
     }
 
     @Value
