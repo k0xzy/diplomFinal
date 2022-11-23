@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.CardInf.*;
-import static ru.netology.data.DataHelper.*;
-import static ru.netology.data.DataHelper.getPaymentInfo;
+import static ru.netology.data.DatabaseHelper.*;
+import static ru.netology.data.DatabaseHelper.getPaymentInfo;
 
 public class TourPurchaseTest {
 

@@ -6,8 +6,10 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import java.sql.DriverManager;
 
-public class DataHelper {
+public class DatabaseHelper {
     private static final String datasource = System.getProperty("datasource");
+    private static final String user = "adm";
+    private static final String pass = "pass";
     @SneakyThrows
     public static void databaseCleanUp() {
         var runner = new QueryRunner();
@@ -16,7 +18,7 @@ public class DataHelper {
         var deleteFromPayment = "DELETE FROM payment_entity;";
 
         try (var connection = DriverManager.getConnection(
-                datasource, "adm", "pass")) {
+                datasource, user, pass)) {
             runner.update(connection, deleteFromOrder);
             runner.update(connection, deleteFromCredit);
             runner.update(connection, deleteFromPayment);
@@ -30,7 +32,7 @@ public class DataHelper {
 //        var creditRequestInfo = "SELECT * FROM credit_request_entity WHERE created = (SELECT MAX(created) FROM credit_request_entity);";
 
         try (var connection = DriverManager.getConnection(
-                datasource, "adm", "pass")) {
+                datasource, user, pass)) {
             return runner.query(connection, creditRequestInfo, new BeanHandler<>(CreditRequestEntityInfo.class));
         }
     }
@@ -42,7 +44,7 @@ public class DataHelper {
 //        var paymentInfo = "SELECT * FROM payment_entity WHERE created = (SELECT MAX(created) FROM payment_entity);";
 
         try (var connection = DriverManager.getConnection(
-                datasource, "adm", "pass")) {
+                datasource, user, pass)) {
             return runner.query(connection, paymentInfo, new BeanHandler<>(PaymentEntityInfo.class));
         }
     }
@@ -54,7 +56,7 @@ public class DataHelper {
 //        var orderInfo = "SELECT * FROM order_entity WHERE created = (SELECT MAX(created) FROM order_entity);";
 
         try (var connection = DriverManager.getConnection(
-                datasource, "adm", "pass")) {
+                datasource, user, pass)) {
             return runner.query(connection, orderInfo, new BeanHandler<>(OrderEntityInfo.class));
         }
     }

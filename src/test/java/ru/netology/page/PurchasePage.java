@@ -5,7 +5,10 @@ import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataGenerator;
 import ru.netology.data.CardInf.*;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -28,6 +31,7 @@ public class PurchasePage {
     private final SelenideElement cvcField = $("input[placeholder='999']");
     private final SelenideElement cvcFieldError = $x("//*[text()='CVC/CVV']/..//*[@class='input__sub']");
     private final SelenideElement notificationSuccessfully = $(".notification_status_ok");
+//    private final SelenideElement notificationSuccessfully = $(withText("Операция одобрена Банком."));
     private final SelenideElement notificationError = $(".notification_status_error");
     private final SelenideElement continueButton = $("form button");
 
@@ -200,10 +204,9 @@ public class PurchasePage {
     }
 
     public void bankApproved() {
-        notificationSuccessfully.shouldBe(Condition.visible);
-    }
+        notificationSuccessfully.shouldBe(Condition.visible, Duration.ofSeconds(7));    }
 
     public void bankDeclined() {
-        notificationError.shouldBe(Condition.visible);
+        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(7));
     }
 }
