@@ -12,7 +12,6 @@
 #### Необходимое окружение:
 - установленный Docker;
 - убедитесь, что порты 8080, 9999 и 5432 или 3306 (в зависимости от выбранной базы данных) свободны;
-
 #### Инструкции по установке
 1. Скачайте архив;
 
@@ -20,14 +19,15 @@
 
 3. Убедитесь в том, что БД готова к работе (логи смотреть через `docker-compose logs -f <applicationName>` (mysql или postgres)
 4. Запустить SUT во вкладке Terminal Intellij IDEA командой:
-`java -jar artifacts/aqa-shop.jar`
+- Для БД MySQL `java -Dspring.datasource.url=jdbc:mysql://localhost:3306/base_mysql -jar artifacts/aqa-shop.jar`
+- Для БД Postgresql `java -Dspring.datasource.url=jdbc:postgresql://localhost:3306/base_postgresql -jar artifacts/aqa-shop.jar`
 5. Для запуска авто-тестов в Terminal Intellij IDEA открыть новую сессию и ввести команду:
-`./gradlew clean test allureReport -Dheadless=true`
+`gradlew clean test allureReport -Dheadless=true`
 где:
 `allureReport` - подготовка данных для отчета Allure;
 `-Dheadless=true` - запускает авто-тесты в headless-режиме (без открытия браузера).
 6. Для просмотра отчета Allure в терминале ввести команду:
-`./gradlew allureServe`
+`gradlew allureServe`
 
 
 
