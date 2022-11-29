@@ -9,9 +9,10 @@ import java.util.Random;
 
 public class DataGenerator {
 
-    private static final String [] numbers = new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private static final String[] numbers = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-    private DataGenerator() {}
+    private DataGenerator() {
+    }
 
 
     static String getOverdueMonth() {
@@ -34,15 +35,16 @@ public class DataGenerator {
     static String getYear(int yearCount) {
         return LocalDate.now().plusYears(yearCount).format(DateTimeFormatter.ofPattern("yy"));
     }
+
     static String getSpaceOrHyphen() {
         Random random = new Random();
-        final String [] symbols = new String [] {" ", "-"};
+        final String[] symbols = new String[]{" ", "-"};
         return symbols[random.nextInt(2)];  //Равноценно int диапазону [0;2)
     }
 
     static String getSpecialSymbols() {
         Random random = new Random();
-        final String [] specialSymbols = new String[] {"!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+",
+        final String[] specialSymbols = new String[]{"!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+",
                 ",", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"};
         var fistSymbol = specialSymbols[random.nextInt(31)];
         var secondSymbol = specialSymbols[random.nextInt(31)];

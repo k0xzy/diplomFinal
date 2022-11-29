@@ -3,6 +3,7 @@ package ru.netology.data;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import ru.netology.databaseentities.*;
 
 import java.sql.DriverManager;
 
@@ -10,6 +11,7 @@ public class DatabaseHelper {
     private static final String datasource = System.getProperty("datasource");
     private static final String user = "adm";
     private static final String pass = "pass";
+
     @SneakyThrows
     public static void databaseCleanUp() {
         var runner = new QueryRunner();

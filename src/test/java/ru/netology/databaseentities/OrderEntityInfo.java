@@ -1,13 +1,13 @@
-package ru.netology.data;
+package ru.netology.databaseentities;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class CreditRequestEntityInfo {
+public class OrderEntityInfo {
     private String id;
-    private String bank_id;
     private String created;
-    private String status;
+    private String credit_id;
+    private String payment_id;
 }
