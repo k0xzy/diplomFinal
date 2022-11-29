@@ -16,7 +16,7 @@
 **Количество тест-кейсов - 30, % успешных/неуспешных  70/30 (9 упавших тест-кейсов).**
 
 **Ниже приведен отчет из фреймворка Allure:**
-![image](https://user-images.githubusercontent.com/106079495/201705608-19dbab22-678a-4e5e-bbed-c0e35fd2ad16.png)
+![image](https://user-images.githubusercontent.com/106079495/204526674-8cd1e0d0-e678-4a99-bbf6-018d2513b4d3.png)
 
 
 
