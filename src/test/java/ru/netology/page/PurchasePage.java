@@ -2,24 +2,15 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.data.DataGenerator;
-import ru.netology.data.CardInf.*;
+import lombok.Value;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class PurchasePage {
-    //Кнопка "Купить" и заголовок "Оплата по карте":
-    private final SelenideElement buyButton = $(byText("Купить"));
-    private final SelenideElement buyHeading = $(byText("Оплата по карте"));
-    //Кнопка "Купить в кредит" и заголовок "Кредит по данным карты":
-    private final SelenideElement creditButton = $(byText("Купить в кредит"));
-    private final SelenideElement creditHeading = $(byText("Кредит по данным карты"));
-    //Форма для ввода данных, со всеми полями ввода, ошибками полей и кнопкой "Продолжить":
     private final SelenideElement cardNumberField = $("input[placeholder='0000 0000 0000 0000']");
     private final SelenideElement cardNumberFieldError = $x("//*[text()='Номер карты']/..//*[@class='input__sub']");
     private final SelenideElement monthField = $("input[placeholder='08']");
@@ -31,19 +22,8 @@ public class PurchasePage {
     private final SelenideElement cvcField = $("input[placeholder='999']");
     private final SelenideElement cvcFieldError = $x("//*[text()='CVC/CVV']/..//*[@class='input__sub']");
     private final SelenideElement notificationSuccessfully = $(".notification_status_ok");
-//    private final SelenideElement notificationSuccessfully = $(withText("Операция одобрена Банком."));
     private final SelenideElement notificationError = $(".notification_status_error");
     private final SelenideElement continueButton = $("form button");
-
-    public void cardPayment() {
-        buyButton.click();
-        buyHeading.shouldBe(Condition.visible);
-    }
-
-    public void cardCredit() {
-        creditButton.click();
-        creditHeading.shouldBe(Condition.visible);
-    }
 
     public void emptyForm() {
         continueButton.click();
@@ -204,9 +184,11 @@ public class PurchasePage {
     }
 
     public void bankApproved() {
-        notificationSuccessfully.shouldBe(Condition.visible, Duration.ofSeconds(7));    }
+        notificationSuccessfully.shouldBe(Condition.visible, Duration.ofSeconds(20));
+    }
 
     public void bankDeclined() {
-        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(7));
+        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 }
+

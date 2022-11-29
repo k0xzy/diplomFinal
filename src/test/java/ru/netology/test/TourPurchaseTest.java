@@ -4,15 +4,15 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
+import ru.netology.page.MainPage;
 import ru.netology.page.PurchasePage;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.CardInf.*;
 import static ru.netology.data.DatabaseHelper.*;
-import static ru.netology.data.DatabaseHelper.getPaymentInfo;
 
 public class TourPurchaseTest {
 
@@ -34,14 +34,21 @@ public class TourPurchaseTest {
 
     @Nested
     //Тесты на оплату и получения кредита по валидной карте:
-    public class ValidCard {
+    public class BuyCard {
+
+        @BeforeEach
+        public void setPayment() {
+            var mainPage = new MainPage();
+            mainPage.cardPayment();
+        }
 
         @Test
         @SneakyThrows
         @DisplayName("Покупка валидной картой")
         public void shouldPaymentValidCard() {
+            var mainPage = new MainPage();
             var purchasePage = new PurchasePage();
-            purchasePage.cardPayment();
+            mainPage.cardPayment();
             var info = getApprovedCard();
             purchasePage.sendingData(info);
             //Время отправки данных в базу данных, в секундах:
@@ -57,38 +64,14 @@ public class TourPurchaseTest {
             purchasePage.bankApproved();
         }
 
-        @Test
-        @SneakyThrows
-        @DisplayName("Получение кредита на покупку по валидной карте")
-        public void shouldCreditValidCard() {
-            var purchasePage = new PurchasePage();
-            purchasePage.cardCredit();
-            var info = getApprovedCard();
-            purchasePage.sendingData(info);
-            //Время отправки данных в базу данных, в секундах:
-            TimeUnit.SECONDS.sleep(10);
-            var expected = "APPROVED";
-            var creditRequestInfo = getCreditRequestInfo();
-            var orderInfo = getOrderInfo();
-            //Проверка соответствия статуса в базе данных в таблице запросов кредита:
-            assertEquals(expected, creditRequestInfo.getStatus());
-            //Проверка соответствия в базе данных id в таблице запросов кредита и в таблице заявок:
-            assertEquals(creditRequestInfo.getBank_id(), orderInfo.getCredit_id());
-            //Проверка вывода соответствующего уведомления пользователю на странице покупок:
-            purchasePage.bankApproved();
-        }
-    }
-
-    @Nested
-    //Тесты на оплату и получения кредита по не валидной карте:
-    public class InvalidCard {
 
         @Test
         @SneakyThrows
         @DisplayName("Покупка не валидной картой")
         public void shouldPaymentInvalidCard() {
             var purchasePage = new PurchasePage();
-            purchasePage.cardPayment();
+            var mainPage = new MainPage();
+            mainPage.cardPayment();
             var info = getDeclinedCard();
             purchasePage.sendingData(info);
             //Время отправки данных в базу данных, в секундах:
@@ -102,38 +85,6 @@ public class TourPurchaseTest {
             assertEquals(paymentInfo.getTransaction_id(), orderInfo.getPayment_id());
             //Проверка вывода соответствующего уведомления пользователю на странице покупок:
             purchasePage.bankDeclined();
-        }
-
-        @Test
-        @SneakyThrows
-        @DisplayName("Получение кредита на покупку по не валидной карте")
-        public void shouldCreditInvalidCard() {
-            var purchasePage = new PurchasePage();
-            purchasePage.cardCredit();
-            var info = getDeclinedCard();
-            purchasePage.sendingData(info);
-            //Время отправки данных в базу данных, в секундах:
-            TimeUnit.SECONDS.sleep(10);
-            var expected = "DECLINED";
-            var creditRequestInfo = getCreditRequestInfo();
-            var orderInfo = getOrderInfo();
-            //Проверка соответствия статуса в базе данных в таблице запросов кредита:
-            assertEquals(expected, creditRequestInfo.getStatus());
-            //Проверка соответствия в базе данных id в таблице запросов кредита и в таблице заявок:
-            assertEquals(creditRequestInfo.getBank_id(), orderInfo.getCredit_id());
-            //Проверка вывода соответствующего уведомления пользователю на странице покупок:
-            purchasePage.bankApproved();
-        }
-    }
-
-    @Nested
-    //Тесты на валидацию полей платежной формы:
-    public class PaymentFormFieldValidation {
-
-        @BeforeEach
-        public void setPayment() {
-            var purchasePage = new PurchasePage();
-            purchasePage.cardPayment();
         }
 
         @Test
@@ -265,14 +216,59 @@ public class TourPurchaseTest {
     }
 
     @Nested
-    //Тесты на валидацию полей кредитной формы:
-    public class CreditFormFieldValidation {
+    //Тесты на оплату и получения кредита по не валидной карте:
+    public class BuyCreditCard {
 
         @BeforeEach
         public void setPayment() {
-            var purchasePage = new PurchasePage();
-            purchasePage.cardCredit();
+            var mainPage = new MainPage();
+            mainPage.cardCredit();
         }
+
+        @Test
+        @SneakyThrows
+        @DisplayName("Получение кредита на покупку по валидной карте")
+        public void shouldCreditValidCard() {
+            var purchasePage = new PurchasePage();
+            var mainPage = new MainPage();
+            mainPage.cardCredit();
+            var info = getApprovedCard();
+            purchasePage.sendingData(info);
+            //Время отправки данных в базу данных, в секундах:
+            TimeUnit.SECONDS.sleep(10);
+            var expected = "APPROVED";
+            var creditRequestInfo = getCreditRequestInfo();
+            var orderInfo = getOrderInfo();
+            //Проверка соответствия статуса в базе данных в таблице запросов кредита:
+            assertEquals(expected, creditRequestInfo.getStatus());
+            //Проверка соответствия в базе данных id в таблице запросов кредита и в таблице заявок:
+            assertEquals(creditRequestInfo.getBank_id(), orderInfo.getCredit_id());
+            //Проверка вывода соответствующего уведомления пользователю на странице покупок:
+            purchasePage.bankApproved();
+        }
+
+        @Test
+        @SneakyThrows
+        @DisplayName("Получение кредита на покупку по не валидной карте")
+        public void shouldCreditInvalidCard() {
+            var purchasePage = new PurchasePage();
+            var mainPage = new MainPage();
+            mainPage.cardCredit();
+            var info = getDeclinedCard();
+            purchasePage.sendingData(info);
+            //Время отправки данных в базу данных, в секундах:
+            TimeUnit.SECONDS.sleep(10);
+            var expected = "DECLINED";
+            var creditRequestInfo = getCreditRequestInfo();
+            var orderInfo = getOrderInfo();
+            //Проверка соответствия статуса в базе данных в таблице запросов кредита:
+            assertEquals(expected, creditRequestInfo.getStatus());
+            //Проверка соответствия в базе данных id в таблице запросов кредита и в таблице заявок:
+            assertEquals(creditRequestInfo.getBank_id(), orderInfo.getCredit_id());
+            //Проверка вывода соответствующего уведомления пользователю на странице покупок:
+            purchasePage.bankApproved();
+        }
+
 
         @Test
         @DisplayName("Отправка пустой формы")
