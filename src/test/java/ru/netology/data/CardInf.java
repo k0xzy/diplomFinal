@@ -1,6 +1,7 @@
 package ru.netology.data;
 
 import lombok.Value;
+
 import static ru.netology.data.DataGenerator.*;
 
 public class CardInf {
@@ -10,6 +11,26 @@ public class CardInf {
 
     public static CardInfo getApprovedCard() {
         return new CardInfo(validCard, getValidMonth(), getYear(0), getOwner(), getCVC());
+    }
+
+    public static CardInfo getEmptyCard() {
+        return new CardInfo(null, getValidMonth(), getYear(0), getOwner(), getCVC());
+    }
+
+    public static CardInfo getEmptyOwner() {
+        return new CardInfo(validCard, getValidMonth(), getYear(0), null, getCVC());
+    }
+
+    public static CardInfo getEmptyMonth() {
+        return new CardInfo(validCard, null, getYear(0), getOwner(), getCVC());
+    }
+
+    public static CardInfo getEmptyYear() {
+        return new CardInfo(validCard, getValidMonth(), null, getOwner(), getCVC());
+    }
+
+    public static CardInfo getEmptyCVC() {
+        return new CardInfo(validCard, getValidMonth(), getYear(0), getOwner(), null);
     }
 
     public static CardInfo getDeclinedCard() {
@@ -61,7 +82,7 @@ public class CardInf {
 
     static String getIncompleteCardNumber() {
         //Номер карты без последней цифры:
-        return validCard.substring(0,18);
+        return validCard.substring(0, 18);
     }
 
     @Value
